@@ -1,0 +1,25 @@
+---
+kind: pipeline
+type: docker
+name: docker image
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    repo: ${MZ_DOCKER_REGISTRY}/pre-commit
+    registry: ${MZ_DOCKER_REGISTRY}
+    mirror: ${MZ_DOCKER_HUB_MIRROR}
+    custom_dns: ${MZ_DNS}
+    dockerfile: Dockerfile
+    build_args:
+      - GIT_CONFIG_COUNT=1
+    build_args_from_env:
+      - PIP_INDEX_URL
+      - PIP_TIMEOUT
+      - GIT_CONFIG_KEY_0
+      - GIT_CONFIG_VALUE_0
+    tags:
+      - latest
+    username: ${MZ_DOCKER_USER}
+    password: ${MZ_DOCKER_PASSWORD}
