@@ -41,9 +41,11 @@ def no_git_env(
     return {
         k: v for k, v in _env.items()
         if not k.startswith('GIT_') or
+        k.startswith('GIT_CONFIG_KEY_') or
+        k.startswith('GIT_CONFIG_VALUE_')
         k in {
             'GIT_EXEC_PATH', 'GIT_SSH', 'GIT_SSH_COMMAND', 'GIT_SSL_CAINFO',
-            'GIT_SSL_NO_VERIFY',
+            'GIT_SSL_NO_VERIFY', 'GIT_CONFIG_COUNT'
         }
     }
 
